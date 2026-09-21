@@ -1,0 +1,11 @@
+python3 metrics-hadesancients.py --METRICS_PATH "D:\metrics_runs\hades_ancients_metrics\runs" --DATABASE hades_ancients --DATABASE_USER postgres --DATABASE_PASSWORD secret --FIND_NEW_RUNS_TO_PROCESS true --PROCESS_RUNS true --REPORT_PATH reports/hadesancients
+
+python3 metrics-hadesancients.py --METRICS_PATH "D:\metrics_runs\hades_ancients_metrics\runs" --DATABASE hades_ancients --DATABASE_USER postgres --DATABASE_PASSWORD secret --FIND_NEW_RUNS_TO_PROCESS true --PROCESS_RUNS true --ONLY_BASE_GAME_CHARACTERS true --REPORT_PATH reports/hadesancients-basegamecharacters
+
+python3 metrics-hadesancients.py --METRICS_PATH "D:\metrics_runs\hades_ancients_metrics\runs" --DATABASE hades_ancients --DATABASE_USER postgres --DATABASE_PASSWORD secret --FIND_NEW_RUNS_TO_PROCESS true --PROCESS_RUNS true --ONLY_BASE_GAME_CHARACTERS true --MIN_ASC_LEVEL 10 --REPORT_PATH reports/hadesancients-basegamecharacters-asc10
+
+python3 metrics-hadesancients-generate-graphs.py --source_directory "reports/hadesancients" --destination_directory "reports/graphs-hadesancients"
+
+python3 metrics-hadesancients-generate-graphs.py --source_directory "reports/hadesancients-basegamecharacters" --destination_directory "reports/graphs-hadesancients-basegamecharacters"
+
+python3 metrics-hadesancients-generate-graphs.py --source_directory "reports/hadesancients-basegamecharacters-asc10" --destination_directory "reports/graphs-hadesancients-basegamecharacters-asc10"
