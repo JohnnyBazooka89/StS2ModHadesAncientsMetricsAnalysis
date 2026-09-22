@@ -288,7 +288,7 @@ def report(conn, args):
             ('07_ancient_summary.csv', []),
             ('07_ancient_summary_by_ascension.csv', ['ascension']),
             ('07_ancient_summary_by_character.csv', ['character']),
-            ('07_ancient_summary_by_ascension_character.csv', ['ascension', 'character']),
+            ('07_ancient_summary_by_character_ascension.csv', ['character', 'ascension']),
         ):
             dimensions = ', '.join(group_columns)
             run_dimensions = ''.join(f', r.{column}' for column in group_columns)
