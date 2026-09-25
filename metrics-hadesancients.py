@@ -47,6 +47,7 @@ def parse_args():
     parser.add_argument('--ASCENSION_MIN', default=None, type=int)
     parser.add_argument('--ASCENSION_MAX', default=None, type=int)
     parser.add_argument('--NUM_PLAYERS', default=None, type=int)
+    parser.add_argument('--VERSION_PREFIX', default=None, help='Optional hades_ancients_version prefix filter')
     return parser.parse_args()
 
 
@@ -200,6 +201,9 @@ def report(conn, args):
         raise ValueError('MIN_ASC_LEVEL must not exceed MAX_ASC_LEVEL')
     filters = ["r.status = 'PROCESSED'"]
     params = []
+    if args.VERSION_PREFIX is not None:
+        filters.append('r.hades_ancients_version LIKE %s')
+        params.append(args.VERSION_PREFIX + '%')
     if args.ONLY_BASE_GAME_CHARACTERS:
         filters.append("r.character IN ('IRONCLAD', 'SILENT', 'REGENT', 'NECROBINDER', 'DEFECT')")
     filters.append('r.ascension >= %s')
