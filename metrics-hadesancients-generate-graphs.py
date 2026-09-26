@@ -1,4 +1,5 @@
 import argparse
+import json
 import pandas as pd
 import plotly.express as px
 import plotly.io as pio
@@ -8,20 +9,13 @@ from pathlib import Path
 # 1. CONFIGURATION
 # ============================================================
 
-GODS = [
-    "Hecate",
-    "Athena",
-    "Hestia",
-    "Poseidon",
-    "Zeus",
-    "Aphrodite",
-    "Ares",
-    "Dionysus",
-    "Hephaestus",
-]
-
 # Base folder containing the Python script
 BASE_FOLDER = Path(__file__).resolve().parent
+
+# Load the list of Ancients to process from ancient-map.json.
+ANCIENT_MAP_FILE = BASE_FOLDER / "ancient-map.json"
+with ANCIENT_MAP_FILE.open("r", encoding="utf-8") as f:
+    GODS = list(json.load(f).keys())
 
 # Allow input and output folders to be specified on the command line.
 parser = argparse.ArgumentParser(description="Generate Ancient choice graphs from CSV reports")
