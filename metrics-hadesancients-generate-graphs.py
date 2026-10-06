@@ -48,7 +48,7 @@ OUTPUT_FILE = OUTPUT_FOLDER / "ancient_choices_all_gods.html"
 def create_graph(god_name):
 
     # Construct the CSV filename
-    filename = DATA_FOLDER / f"06_ancient_choices_{god_name}.csv"
+    filename = DATA_FOLDER / f"03_ancient_choices_{god_name}.csv"
 
     # Skip missing files
     if not filename.exists():

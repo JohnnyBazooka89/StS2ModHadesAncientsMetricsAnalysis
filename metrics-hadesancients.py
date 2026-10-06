@@ -226,8 +226,11 @@ def report(conn, args):
 
         for name, group_columns in (
             ('01_summary', []), ('02_by_character', ['character']),
-            ('03_by_ascension', ['ascension']), ('04_by_player_count', ['num_players']),
-            ('05_by_character_ascension_players', ['character', 'ascension', 'num_players']),
+            ('02_by_ascension', ['ascension']), ('02_by_player_count', ['num_players']),
+            ('02_by_character_ascension', ['character', 'ascension']),
+            ('02_by_character_players', ['character', 'num_players']),
+            ('02_by_ascension_players', ['ascension', 'num_players']),
+            ('02_by_character_ascension_players', ['character', 'ascension', 'num_players']),
         ):
             group = ', '.join(f'r.{column}' for column in group_columns)
             select = (group + ', ') if group else ''
@@ -273,7 +276,7 @@ def report(conn, args):
             ORDER BY offered_runs DESC, ancient_relic_id
         ''', params + [args.MIN_ANCIENT_CHOICES])
         ancient_rows = cur.fetchall()
-        write_csv(args.REPORT_PATH / '06_ancient_choices.csv',
+        write_csv(args.REPORT_PATH / '03_ancient_choices.csv',
                   ANCIENT_REPORT_HEADERS, ancient_rows)
 
         # The map is applied at report time, so changing it never requires reimporting runs.
@@ -281,7 +284,7 @@ def report(conn, args):
         for ancient, relic_ids in ancient_map.items():
             # Preserve map ordering. Missing relics are omitted (no offers in filtered runs).
             rows = [rows_by_id[relic_id] for relic_id in relic_ids if relic_id in rows_by_id]
-            write_csv(args.REPORT_PATH / f'06_ancient_choices_{ancient}.csv',
+            write_csv(args.REPORT_PATH / f'03_ancient_choices_{ancient}.csv',
                       ANCIENT_REPORT_HEADERS, rows)
 
         # Count each run once per Ancient, even if it offered multiple mapped relics.
@@ -289,10 +292,10 @@ def report(conn, args):
         # and their combination. Each breakdown applies the minimum to each group.
         ancient_order = {name: index for index, name in enumerate(ancient_map)}
         for filename, group_columns in (
-            ('07_ancient_summary.csv', []),
-            ('07_ancient_summary_by_ascension.csv', ['ascension']),
-            ('07_ancient_summary_by_character.csv', ['character']),
-            ('07_ancient_summary_by_character_ascension.csv', ['character', 'ascension']),
+            ('04_ancient_summary.csv', []),
+            ('04_ancient_summary_by_ascension.csv', ['ascension']),
+            ('04_ancient_summary_by_character.csv', ['character']),
+            ('04_ancient_summary_by_character_ascension.csv', ['character', 'ascension']),
         ):
             dimensions = ', '.join(group_columns)
             run_dimensions = ''.join(f', r.{column}' for column in group_columns)
